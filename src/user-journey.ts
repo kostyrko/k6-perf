@@ -1,28 +1,18 @@
-import { sleep, check } from 'k6';
+import { sleep } from 'k6';
 import { Options } from 'k6/options';
-import http from 'k6/http';
-import { baseUrl } from '../config/constants';
-import { jsonHeaders } from '../http/headers';
-import { LoginRequest } from '../domain/loginTypes';
+import { getRandomUser } from '../util/user';
+import { register } from '../request/registerRequest';
+import { login } from '../request/loginRequest';
 
 export const options: Options = {
-  vus: 5,
-  iterations: 5
+  vus: 2,
+  iterations: 2
 };
 
-const loginRequestBody = (): string => {
-  const body: LoginRequest = {
-    password: 'admin',
-    username: 'admin'
-  }
-  return JSON.stringify(body)
-}
-
 export default () => {
-  const loginResponse = http.post(`${baseUrl}/users/signin`, loginRequestBody(), {
-    headers: jsonHeaders
-  });
-  check(loginResponse, {
-    'status is 200': () => loginResponse.status === 200,
-  });
+  const user = getRandomUser()
+
+  register(user)
+  sleep(5)
+  login(user)
 };

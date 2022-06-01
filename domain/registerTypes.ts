@@ -1,10 +1,10 @@
-import {Roles} from "./roles";
+import { Roles } from "./roles"
 
-export type RegistrationRequest = {
+export type User = {
+    username: string,
+    email: string,
+    password: string,
     firstName: string,
     lastName: string,
-    username: string,
-    password: string,
-    roles: Roles[],
-    email: string
-}
+    roles: Roles[]
+  }
