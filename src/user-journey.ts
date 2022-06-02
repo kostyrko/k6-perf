@@ -10,9 +10,10 @@ export const options: Options = {
 };
 
 export default () => {
+  let token: string | undefined
   const user = getRandomUser()
 
   register(user)
   sleep(5)
-  login(user)
+  token = login(user)
 };
