@@ -11,3 +11,10 @@ export const authHeaders = (token: string) => {
         'Authorization' : `Barer ${token}`
     }
 }
+
+export const refreshHeaders = (token: string) => {
+    return {
+        'Accept': '*/*',
+        'Authorization': `Bearer ${token}`
+    }
+}
