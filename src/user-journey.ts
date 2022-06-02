@@ -7,7 +7,7 @@ import { getAllUsers } from '../request/getAllUsersRequest';
 
 export const options: Options = {
   vus: 2,
-  iterations: 1
+  iterations: 2
 };
 
 export default () => {
