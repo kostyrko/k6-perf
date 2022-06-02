@@ -3,7 +3,7 @@ import { Options } from 'k6/options';
 import { getRandomUser } from '../util/user';
 import { register } from '../request/registerRequest';
 import { login } from '../request/loginRequest';
-import { getAllUsers } from '../request/getAllUsersRequests';
+import { getAllUsers } from '../request/getAllUsersRequest';
 
 export const options: Options = {
   vus: 2,
@@ -17,6 +17,6 @@ export default () => {
   register(user)
   sleep(5)
   token = login(user)
-  sleep(5)
+  sleep(2)
   getAllUsers(token)
 };
