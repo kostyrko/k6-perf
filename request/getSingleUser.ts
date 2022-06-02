@@ -9,12 +9,12 @@ export const getSingleUser = (userName: string, token: string) => {
         headers: authHeaders(token)
     })
 
-    const getUserReponse = getSingleUser.json() as singleUserResponse
+    const getUserResponse = getSingleUser.json() as singleUserResponse
 
     check(getSingleUser, {
         'registration status is 200': () => getSingleUser.status === 200,
     });
-    check(getUserReponse, {
-        'contains user': () => getUserReponse.username === userName,
+    check(getUserResponse, {
+        'contains user': () => getUserResponse.username === userName,
     });
 }
