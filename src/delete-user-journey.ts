@@ -1,6 +1,6 @@
 import { sleep } from 'k6';
 import { Options } from 'k6/options';
-import { deleteUser } from '../request/deleteUser';
+import { deleteSingleUser } from '../request/deleteUser';
 import { getAllUsers } from '../request/getAllUsersRequest';
 import { loginAsAdmin } from '../request/loginRequest';
 
@@ -15,10 +15,12 @@ export default () => {
     const token = loginAsAdmin(login, password)
     const users = getAllUsers(token)
     users.forEach(user => {
-        if (user.username !== login) {
-            deleteUser(user.username, token)
-            sleep(0.1)
+        if (user.username !== 'admin') {
+            deleteSingleUser(user.username, token)
+            sleep(0.2)
         }
     })
-
+    console.log(token)
 };
+
+
