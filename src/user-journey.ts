@@ -15,8 +15,8 @@ import { updateUser } from '../request/updateUserRequest';
 
 export const options: Options = {
   stages: [
-    { duration: '5m', target: 30 },
-    { duration: '10m', target: 30 },
+    { duration: '5m', target: 5 },
+    { duration: '10m', target: 5 },
   ]
 };
 
@@ -37,7 +37,7 @@ export default () => {
   sleep(2)
   getMe(user.email, token)
   sleep(2)
-  token = refreshToken(token)
+  // token = refreshToken(token)
   sleep(3)
   updateUser(user, token)
 };
