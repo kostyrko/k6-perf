@@ -3,13 +3,13 @@ import http from "k6/http";
 import { baseUrl } from "../config/constants";
 import { authHeaders } from "../http/headers";
 
-export const deleteSingleUser = (userName: string, token: string) => {
-    const delSingleUser = http.del(`${baseUrl}/users/${userName}`, {}, {
+export const deleteUser = (username: string, token: string) => {
+    const deleteUserResult = http.del(`${baseUrl}/users/${username}`, {}, {
         headers: authHeaders(token)
     })
 
-
-    check(delSingleUser, {
-        'delete user': () => delSingleUser.status === 204,
+    check(deleteUserResult, {
+        'delete status is 204': () => deleteUserResult.status === 204,
     });
+
 }
