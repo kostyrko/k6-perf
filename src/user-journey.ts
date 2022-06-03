@@ -4,18 +4,20 @@ import { getRandomUser } from '../util/user';
 import { register } from '../request/registerRequest';
 import { login } from '../request/loginRequest';
 import { getAllUsers } from '../request/getAllUsersRequest';
-import { getSingleUser } from '../request/getSingleUser';
-import { getMyData } from '../request/getMyData';
+import { getSingleUser } from '../request/getSingleUserRequest';
+import { getMe } from '../request/getMeRequest';
 // @ts-ignore
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
-import { getRefreshToken } from '../request/getRefreshToken';
 // @ts-ignore
 import {textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
-import { editUserData } from '../request/editUserdata';
+import { refreshToken } from '../request/refreshTokenRequest';
+import { updateUser } from '../request/updateUserRequest';
 
 export const options: Options = {
-  vus: 2,
-  iterations: 2
+  stages: [
+    { duration: '5m', target: 30 },
+    { duration: '10m', target: 30 },
+  ]
 };
 
 
@@ -33,14 +35,12 @@ export default () => {
   sleep(2)
   getSingleUser(user.username, token)
   sleep(2)
-  getMyData(user.email, token)
+  getMe(user.email, token)
   sleep(2)
-  refreshToken = getRefreshToken(token)
-  sleep(2)
-  editUserData(user, refreshToken)
+  token = refreshToken(token)
+  sleep(3)
+  updateUser(user, token)
 };
-
-
 
 export function handleSummary(data: JSONObject) {
   return {

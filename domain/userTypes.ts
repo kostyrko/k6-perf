@@ -1,10 +1,10 @@
 import { Roles } from "./roles"
 
-export type singleUserResponse = {
-    id: number,
-    username: string,
-    roles: Roles[],
-    firstName: string,
-    lastName: string,
+export type UserResponse = {
     email: string
+    firstName: string
+    id: number
+    lastName: string
+    roles: Roles[]
+    username: string
 }
