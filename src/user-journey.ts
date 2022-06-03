@@ -15,8 +15,17 @@ import { updateUser } from '../request/updateUserRequest';
 import { repeat, runWithProbability } from '../util/requestUtil';
 
 export const options: Options = {
-  vus: 1,
-  iterations: 1
+  stages: [
+    { duration: '1s', target: 5 },
+    { duration: '6s', target: 2 },
+    { duration: '5s', target: 5 },
+    { duration: '6s', target: 0 },
+
+  ],
+  thresholds: {
+    http_req_failed: ['rate<0.01'],
+    checks: ['rate<0.9'],
+  }
 };
 
 export default () => {
@@ -33,7 +42,7 @@ export default () => {
   sleep(2)
   runWithProbability(() => getMe(user.email, token), 0.5)
   sleep(2)
-  // token = refreshToken(token)
+  token = refreshToken(token)
   sleep(3)
   updateUser(user, token)
 };
